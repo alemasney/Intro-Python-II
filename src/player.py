@@ -2,5 +2,10 @@
 # currently.
 
 class Player:
-    def __init__(self, room):
-        self.room = room
+    def __init__(self, player_name, current_room):
+        self.player_name = player_name
+        self.current_room = current_room
+
+# Put the Player class in player.py.
+
+# Players should have a name and current_room attributes
