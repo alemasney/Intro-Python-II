@@ -4,21 +4,22 @@ from player import Player
 
 room = {
     'outside':  Room("Outside Cave Entrance",
-                     "North of you, the cave mount beckons"),
+                     "North of you, the cave mount beckons",
+                     ["light", "matches"]),
 
     'foyer':    Room("Foyer", """Dim light filters in from the south. Dusty
-passages run north and east."""),
+passages run north and east.""", ["shovel", "water"]),
 
     'overlook': Room("Grand Overlook", """A steep cliff appears before you, falling
 into the darkness. Ahead to the north, a light flickers in
-the distance, but there is no way across the chasm."""),
+the distance, but there is no way across the chasm.""", ["rock", "food", "umbrella"]),
 
     'narrow':   Room("Narrow Passage", """The narrow passage bends here from west
-to north. The smell of gold permeates the air."""),
+to north. The smell of gold permeates the air.""", ["water shoes", "compass", "pillow"]),
 
     'treasure': Room("Treasure Chamber", """You've found the long-lost treasure
 chamber! Sadly, it has already been completely emptied by
-earlier adventurers. The only exit is to the south."""),
+earlier adventurers. The only exit is to the south.""", ["gold", "silver", "ruby", "diamonds"]),
 }
 
 
@@ -61,46 +62,94 @@ while is_playing is not True:
 
         is_playing = True
 
-
-# Write a loop that:
-
-while is_playing is not False:
     # * Prints the current room name
     print(my_player.current_room.room_name)
 
     # * Prints the current description (the textwrap module might be useful here).
     print(my_player.current_room.room_description)
+    print(my_player.current_room.__str__())
+    print(my_player.__str__())
+
+
+# Write a loop that:
+
+while is_playing is not False:
 
     # * Waits for user input and decides what to do.
-    selection = input('Please enter a direction (n, s, e, w): ').lower()
+    selection = input('Please enter a direction (n, s, e, w) or "p" to pick up item: ').lower()
 
     # If the user enters a cardinal direction, attempt to move to the room there.
     # Print an error message if the movement isn't allowed.
     if selection == 'n':
         if my_player.current_room.n_to is None:
-            selection = input("Can't go North. please select a new direction: ")
+            print("Can't go North. please select a new direction: ")
         else:
-            my_player.current_room = my_player.current_room.n_to
+            new_room = my_player.current_room.n_to
+            my_player.current_room = new_room
+
+            # * Prints the current room name
+            print(my_player.current_room.room_name)
+
+            # * Prints the current description (the textwrap module might be useful here).
+            print(my_player.current_room.room_description)
+            print(my_player.current_room.__str__())
+            print(my_player.__str__())
+
 
     elif selection == 's':
         if my_player.current_room.s_to is None:
-            selection = input("Can't go South. please select a new direction: ")
+            print("Can't go South. please select a new direction: ")
         else:
-            my_player.current_room = my_player.current_room.s_to
+            new_room = my_player.current_room.s_to
+            my_player.current_room = new_room
+
+            # * Prints the current room name
+            print(my_player.current_room.room_name)
+
+            # * Prints the current description (the textwrap module might be useful here).
+            print(my_player.current_room.room_description)
+            print(my_player.current_room.__str__())
+            print(my_player.__str__())
+
             
     elif selection == 'e':
         if my_player.current_room.e_to is None:
-            selection = input("Can't go East. please select a new direction: ")
+            print("Can't go East. please select a new direction: ")
         else:
-            my_player.current_room = my_player.current_room.e_to
+            new_room = my_player.current_room.e_to
+            my_player.current_room = new_room
+
+            # * Prints the current room name
+            print(my_player.current_room.room_name)
+
+            # * Prints the current description (the textwrap module might be useful here).
+            print(my_player.current_room.room_description)
+            print(my_player.current_room.__str__())
+            print(my_player.__str__())
+
             
     elif selection == 'w':
         if my_player.current_room.w_to is None:
-            selection = input("Can't go West. please select a new direction: ")
+            print("Can't go West. please select a new direction: ")
         else:
-            my_player.current_room = my_player.current_room.w_to
-            
+            new_room = my_player.current_room.w_to
+            my_player.current_room = new_room
 
+            # * Prints the current room name
+            print(my_player.current_room.room_name)
+
+            # * Prints the current description (the textwrap module might be useful here).
+            print(my_player.current_room.room_description)
+            print(my_player.current_room.__str__())
+            print(my_player.__str__())
+
+
+    elif selection == 'p':
+        item_selected = input("Please enter the name of the item you would like to select: ")
+
+        my_player.current_room.remove_item(item_selected)
+        my_player.add_items(item_selected)
+        
     # If the user enters "q", quit the game.
     elif selection == 'q':
         is_playing = False
